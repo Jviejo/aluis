@@ -349,77 +349,65 @@
             font-size: .78rem; color: var(--text-3); font-style: italic;
         }
 
-        /* ── LEDGER WIDGET ───────────────────────── */
-        .ledger {
-            background: white;
-            border: 1px solid var(--border-2);
-            padding: 2rem 2rem 1.75rem;
+        /* ── QUOTE CAROUSEL (hero) ───────────────── */
+        .quote-carousel {
             position: relative;
+            border: 1px solid var(--border-2);
+            background: white;
             box-shadow: 0 4px 24px rgba(0,0,0,.07);
+            padding: 2.5rem 2.5rem 2rem;
+            min-height: 320px;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-        .ledger::before {
-            content: 'ANÁLISIS DE RENTABILIDAD';
-            position: absolute; top: -9px; left: 1.5rem;
-            background: var(--bg);
-            padding: 0 .5rem;
-            font-family: var(--font-c); font-size: .6rem;
-            letter-spacing: .22em; color: var(--text-3);
+        .quote-carousel::before {
+            content: '"';
+            position: absolute; top: 1rem; left: 1.75rem;
+            font-family: var(--font-d); font-size: 7rem; line-height: 1;
+            color: var(--gold); opacity: .18;
+            pointer-events: none;
         }
-        .ledger-meta {
-            display: flex; justify-content: space-between;
-            font-family: var(--font-c); font-size: .68rem;
-            letter-spacing: .14em; color: var(--text-3);
-            padding-bottom: 1.2rem;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 1.4rem; text-transform: uppercase;
+        .qc-slides { position: relative; flex: 1; }
+        .qc-slide {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; justify-content: center;
+            opacity: 0; transition: opacity .7s ease;
+            pointer-events: none;
         }
-        .ledger-top {
-            display: flex; justify-content: space-between; align-items: baseline;
-            padding-bottom: 1.2rem;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 1.25rem;
+        .qc-slide.active { opacity: 1; pointer-events: auto; position: relative; }
+        .qc-text {
+            font-family: var(--font-d);
+            font-size: clamp(1.2rem, 2vw, 1.55rem);
+            font-style: italic; font-weight: 400;
+            line-height: 1.55; color: var(--text);
+            margin-bottom: 1.5rem;
         }
-        .ledger-top-label {
+        .qc-author {
             font-family: var(--font-c); font-size: .72rem;
-            letter-spacing: .12em; text-transform: uppercase; color: var(--text-2);
+            font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+            color: var(--gold);
         }
-        .ledger-revenue {
-            font-family: var(--font-c); font-size: 2rem;
-            font-weight: 800; color: var(--text);
-            font-variant-numeric: tabular-nums;
+        .qc-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border);
+            margin-top: 1.5rem;
         }
-        .ledger-lines { list-style: none; margin-bottom: 1.4rem; }
-        .ledger-line {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: .42rem 0;
-            border-bottom: 1px solid rgba(180,165,148,.25);
-            font-family: var(--font-c); font-size: .82rem;
-            opacity: 0; transform: translateX(-10px);
-            transition: opacity .35s, transform .35s;
+        .qc-dots { display: flex; gap: .5rem; }
+        .qc-dot {
+            width: 6px; height: 6px;
+            background: var(--border-2); cursor: pointer;
+            transition: background .3s, transform .3s;
         }
-        .ledger-line.vis { opacity: 1; transform: translateX(0); }
-        .ledger-line-lbl { color: var(--text-2); letter-spacing: .04em; }
-        .ledger-line-amt { color: var(--red-light); font-weight: 600; font-variant-numeric: tabular-nums; }
-        .ledger-sep { border: none; border-top: 2px solid var(--border-2); margin-bottom: 1.4rem; }
-        .ledger-result { display: flex; justify-content: space-between; align-items: baseline; }
-        .ledger-result-lbl {
-            font-family: var(--font-c); font-size: .82rem; font-weight: 700;
-            letter-spacing: .14em; text-transform: uppercase; color: var(--text);
+        .qc-dot.active { background: var(--gold); transform: scale(1.4); }
+        .qc-nav { display: flex; gap: .5rem; }
+        .qc-btn {
+            background: none; border: 1px solid var(--border-2);
+            width: 32px; height: 32px; cursor: pointer;
+            font-size: .9rem; color: var(--text-2);
+            display: flex; align-items: center; justify-content: center;
+            transition: border-color .2s, color .2s;
         }
-        #result-num {
-            font-family: var(--font-c); font-size: 2.2rem; font-weight: 900;
-            font-variant-numeric: tabular-nums; transition: color .6s;
-        }
-        #result-num.neg { color: var(--red-light); animation: blink 2s ease-in-out infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .6; } }
-        .ledger-warning {
-            margin-top: 1.2rem; padding: .65rem 1rem;
-            background: var(--red-dim); border: 1px solid rgba(176,48,32,.2);
-            font-family: var(--font-c); font-size: .7rem;
-            letter-spacing: .06em; color: var(--red-light);
-            text-align: center; opacity: 0; transition: opacity .5s;
-        }
-        .ledger-warning.vis { opacity: 1; }
+        .qc-btn:hover { border-color: var(--gold); color: var(--gold); }
 
         /* ── SECTION UTILITIES ───────────────────── */
         section { position: relative; z-index: 1; }
@@ -675,53 +663,33 @@
         }
         .software-feat-desc { font-size: .85rem; color: var(--text-2); line-height: 1.5; }
 
-        /* software screen mockup */
-        .software-screen {
-            background: white; border: 1px solid var(--border-2);
-            box-shadow: 8px 8px 0 var(--bg-3), 8px 8px 0 1px var(--border);
-            position: relative;
+        /* quote grid (software section) */
+        .quote-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 1.5px; background: var(--border);
         }
-        .software-screen-bar {
-            background: var(--bg-3); border-bottom: 1px solid var(--border);
-            padding: .6rem 1rem;
-            display: flex; align-items: center; gap: .5rem;
+        .qg-card {
+            background: white; padding: 2rem;
+            position: relative; overflow: hidden;
+            transition: background .2s;
         }
-        .dot { width: 9px; height: 9px; border-radius: 50%; }
-        .dot-r { background: #f87171; }
-        .dot-y { background: #fbbf24; }
-        .dot-g { background: #4ade80; }
-        .screen-title {
-            font-family: var(--font-c); font-size: .62rem; letter-spacing: .14em;
-            text-transform: uppercase; color: var(--text-3); margin-left: .5rem;
+        .qg-card:hover { background: var(--bg-2); }
+        .qg-mark {
+            font-family: var(--font-d); font-size: 5rem; line-height: .8;
+            color: var(--gold); opacity: .12;
+            position: absolute; top: .5rem; right: 1rem;
+            pointer-events: none;
         }
-        .software-screen-body { padding: 1.5rem; }
-        .screen-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: .55rem 0; border-bottom: 1px solid rgba(180,165,148,.2);
-            font-family: var(--font-c); font-size: .78rem;
+        .qg-text {
+            font-family: var(--font-d); font-size: 1.05rem;
+            font-style: italic; line-height: 1.6;
+            color: var(--text); margin-bottom: 1rem;
+            position: relative; z-index: 1;
         }
-        .screen-row:last-child { border-bottom: none; }
-        .screen-lbl { color: var(--text-2); letter-spacing: .04em; }
-        .screen-val { font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
-        .screen-val.good { color: #16803c; }
-        .screen-val.warn { color: var(--gold); }
-        .screen-val.bad  { color: var(--red-light); }
-        .screen-bar-wrap { margin-top: 1.2rem; }
-        .screen-bar-label {
-            display: flex; justify-content: space-between;
-            font-family: var(--font-c); font-size: .68rem;
-            color: var(--text-3); margin-bottom: .4rem;
-        }
-        .screen-progress { height: 6px; background: var(--bg-3); border-radius: 0; }
-        .screen-progress-fill {
-            height: 100%; background: var(--gold);
-            width: 0; transition: width 1.2s ease;
-        }
-        .screen-badge {
-            margin-top: 1.2rem; padding: .5rem .8rem;
-            background: rgba(22,128,60,.08); border: 1px solid rgba(22,128,60,.2);
-            font-family: var(--font-c); font-size: .68rem; letter-spacing: .08em;
-            color: #16803c; text-align: center;
+        .qg-author {
+            font-family: var(--font-c); font-size: .65rem;
+            font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+            color: var(--gold);
         }
 
         /* ── TESTIMONIALS ────────────────────────── */
@@ -1053,30 +1021,36 @@
             <p class="btn-note">30 minutos · Sin coste · Sin compromiso</p>
         </div>
 
-        <!-- ANIMATED LEDGER -->
-        <div class="ledger" id="ledger">
-            <div class="ledger-meta">
-                <span>Imprenta Ejemplo S.L.</span>
-                <span>Ejercicio 2025</span>
+        <!-- QUOTE CAROUSEL -->
+        <div class="quote-carousel">
+            <div class="qc-slides" id="qc-slides">
+                <div class="qc-slide active">
+                    <p class="qc-text">"No puedes gestionar lo que no puedes medir. Y no puedes medir lo que no sabes calcular."</p>
+                    <div class="qc-author">Peter Drucker · Padre de la gestión moderna</div>
+                </div>
+                <div class="qc-slide">
+                    <p class="qc-text">"La imprenta que conoce su coste real elige a sus clientes. La que no los conoce, los acepta todos."</p>
+                    <div class="qc-author">Antonio Luis García Torres · MargenReal</div>
+                </div>
+                <div class="qc-slide">
+                    <p class="qc-text">"Facturar mucho no es lo mismo que ganar mucho. La diferencia está en cada minuto de cada máquina."</p>
+                    <div class="qc-author">Antonio Luis García Torres · MargenReal</div>
+                </div>
+                <div class="qc-slide">
+                    <p class="qc-text">"El precio que no sabes calcular es el precio que, tarde o temprano, te arruina."</p>
+                    <div class="qc-author">Principio TDABC aplicado a la imprenta</div>
+                </div>
+                <div class="qc-slide">
+                    <p class="qc-text">"Una empresa que no sabe lo que le cuesta producir no tiene estrategia — tiene suerte. Y la suerte se acaba."</p>
+                    <div class="qc-author">Robert S. Kaplan · Harvard Business School</div>
+                </div>
             </div>
-            <div class="ledger-top">
-                <span class="ledger-top-label">Facturación mensual</span>
-                <span class="ledger-revenue">100.000 €</span>
-            </div>
-            <ul class="ledger-lines" id="lines">
-                <li class="ledger-line"><span class="ledger-line-lbl">Costes de materiales</span><span class="ledger-line-amt">−38.000 €</span></li>
-                <li class="ledger-line"><span class="ledger-line-lbl">Mano de obra directa</span><span class="ledger-line-amt">−22.000 €</span></li>
-                <li class="ledger-line"><span class="ledger-line-lbl">Gastos fijos ocultos</span><span class="ledger-line-amt">−28.000 €</span></li>
-                <li class="ledger-line"><span class="ledger-line-lbl">Imprevistos / mermas</span><span class="ledger-line-amt">−8.000 €</span></li>
-                <li class="ledger-line"><span class="ledger-line-lbl">Pedidos a pérdida</span><span class="ledger-line-amt">−7.000 €</span></li>
-            </ul>
-            <hr class="ledger-sep">
-            <div class="ledger-result">
-                <span class="ledger-result-lbl">Beneficio real</span>
-                <span id="result-num">100.000 €</span>
-            </div>
-            <div class="ledger-warning" id="ledger-warn">
-                ⚠&nbsp;&nbsp;Trabajas para pagar gastos, no para ganar dinero
+            <div class="qc-footer">
+                <div class="qc-dots" id="qc-dots"></div>
+                <div class="qc-nav">
+                    <button class="qc-btn" id="qc-prev" aria-label="Anterior">&#8592;</button>
+                    <button class="qc-btn" id="qc-next" aria-label="Siguiente">&#8594;</button>
+                </div>
             </div>
         </div>
 
@@ -1279,52 +1253,28 @@
                 </ul>
             </div>
 
-            <!-- RIGHT: screen mockup -->
+            <!-- RIGHT: quote grid -->
             <div class="rev">
-                <div class="software-screen">
-                    <div class="software-screen-bar">
-                        <div class="dot dot-r"></div>
-                        <div class="dot dot-y"></div>
-                        <div class="dot dot-g"></div>
-                        <span class="screen-title">MargenReal · Diagnóstico de Costes</span>
+                <div class="quote-grid">
+                    <div class="qg-card">
+                        <div class="qg-mark">"</div>
+                        <p class="qg-text">"Saber tu coste/hora es la decisión más rentable que puedes tomar hoy."</p>
+                        <div class="qg-author">Antonio Luis García Torres</div>
                     </div>
-                    <div class="software-screen-body">
-                        <div class="screen-row">
-                            <span class="screen-lbl">Máq. Offset B2 · Coste/hora real</span>
-                            <span class="screen-val warn">82,40 €/h</span>
-                        </div>
-                        <div class="screen-row">
-                            <span class="screen-lbl">Máq. Digital A3 · Coste/hora real</span>
-                            <span class="screen-val good">34,10 €/h</span>
-                        </div>
-                        <div class="screen-row">
-                            <span class="screen-lbl">Precio cobrado por hora (media)</span>
-                            <span class="screen-val bad">61,20 €/h</span>
-                        </div>
-                        <div class="screen-row">
-                            <span class="screen-lbl">Pedidos con margen negativo (mes)</span>
-                            <span class="screen-val bad">34%</span>
-                        </div>
-                        <div class="screen-row">
-                            <span class="screen-lbl">Margen bruto declarado</span>
-                            <span class="screen-val warn">38,2%</span>
-                        </div>
-                        <div class="screen-row">
-                            <span class="screen-lbl">Beneficio neto real estimado</span>
-                            <span class="screen-val bad">−3.100 €</span>
-                        </div>
-                        <div class="screen-bar-wrap">
-                            <div class="screen-bar-label">
-                                <span>Utilización productiva de máquinas</span>
-                                <span>62%</span>
-                            </div>
-                            <div class="screen-progress">
-                                <div class="screen-progress-fill" id="prog-fill" style="width:62%"></div>
-                            </div>
-                        </div>
-                        <div class="screen-badge">
-                            ✓ Análisis generado en 4 días · Listo para revisión con Antonio
-                        </div>
+                    <div class="qg-card">
+                        <div class="qg-mark">"</div>
+                        <p class="qg-text">"La claridad financiera no es un lujo — es la diferencia entre sobrevivir y prosperar."</p>
+                        <div class="qg-author">Principio MargenReal</div>
+                    </div>
+                    <div class="qg-card">
+                        <div class="qg-mark">"</div>
+                        <p class="qg-text">"No trabajes más duro. Trabaja con los números correctos."</p>
+                        <div class="qg-author">Metodología TDABC</div>
+                    </div>
+                    <div class="qg-card">
+                        <div class="qg-mark">"</div>
+                        <p class="qg-text">"El margen que no calculas es el margen que estás regalando."</p>
+                        <div class="qg-author">Antonio Luis García Torres</div>
                     </div>
                 </div>
             </div>
@@ -1577,53 +1527,36 @@
     }
 })();
 
-/* ── LEDGER ANIMATION ───────────────────────── */
+/* ── QUOTE CAROUSEL ─────────────────────────── */
 (function () {
-    const resultEl = document.getElementById('result-num');
-    const warnEl   = document.getElementById('ledger-warn');
-    const lines    = document.querySelectorAll('.ledger-line');
-    const deducts  = [38000, 22000, 28000, 8000, 7000];
-    let started    = false;
+    const slides  = document.querySelectorAll('.qc-slide');
+    const dotsEl  = document.getElementById('qc-dots');
+    const prevBtn = document.getElementById('qc-prev');
+    const nextBtn = document.getElementById('qc-next');
+    let current   = 0;
+    let timer;
 
-    function fmt(n) {
-        const abs = Math.abs(n).toLocaleString('es-ES');
-        return (n < 0 ? '−' : '') + abs + ' €';
+    // build dots
+    slides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'qc-dot' + (i === 0 ? ' active' : '');
+        d.addEventListener('click', () => go(i));
+        dotsEl.appendChild(d);
+    });
+
+    function go(n) {
+        slides[current].classList.remove('active');
+        dotsEl.children[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dotsEl.children[current].classList.add('active');
+        clearInterval(timer);
+        timer = setInterval(() => go(current + 1), 5000);
     }
 
-    function counter(el, from, to, ms) {
-        const t0 = performance.now();
-        (function tick(now) {
-            const p = Math.min((now - t0) / ms, 1);
-            const e = 1 - Math.pow(1 - p, 3);
-            el.textContent = fmt(Math.round(from + (to - from) * e));
-            if (p < 1) requestAnimationFrame(tick);
-        })(t0);
-    }
-
-    function run() {
-        if (started) return;
-        started = true;
-        let bal = 100000;
-        lines.forEach((line, i) => {
-            setTimeout(() => {
-                line.classList.add('vis');
-                const prev = bal;
-                bal -= deducts[i];
-                counter(resultEl, prev, bal, 550);
-                if (bal < 0) {
-                    setTimeout(() => {
-                        resultEl.classList.add('neg');
-                        warnEl.classList.add('vis');
-                    }, 680);
-                }
-            }, 900 + i * 750);
-        });
-    }
-
-    const obs = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) { setTimeout(run, 400); obs.disconnect(); }
-    }, { threshold: 0.3 });
-    obs.observe(document.getElementById('ledger'));
+    prevBtn.addEventListener('click', () => go(current - 1));
+    nextBtn.addEventListener('click', () => go(current + 1));
+    timer = setInterval(() => go(current + 1), 5000);
 })();
 
 /* ── SCROLL REVEAL ──────────────────────────── */
