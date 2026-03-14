@@ -1097,7 +1097,7 @@
 <!-- TRUTH STATEMENT -->
 <section class="truth">
     <div class="wrap">
-        <div class="truth-ghost rev">−3.000€</div>
+
         <p class="truth-body rev">
             <em>Trabajas mucho. Facturas mucho.</em><br>
             Pero a fin de mes el dinero <span class="red">"desaparece".</span><br>
@@ -1551,12 +1551,12 @@
         slides[current].classList.add('active');
         dotsEl.children[current].classList.add('active');
         clearInterval(timer);
-        timer = setInterval(() => go(current + 1), 5000);
+        timer = setInterval(() => go(current + 1), 10000);
     }
 
     prevBtn.addEventListener('click', () => go(current - 1));
     nextBtn.addEventListener('click', () => go(current + 1));
-    timer = setInterval(() => go(current + 1), 5000);
+    timer = setInterval(() => go(current + 1), 10000);
 })();
 
 /* ── SCROLL REVEAL ──────────────────────────── */
